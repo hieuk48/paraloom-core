@@ -55,3 +55,16 @@ proptest! {
         result?;
     }
 }
+
+
+#[test]
+fn merkle_root_history_len_matches_on_chain_capacity() {
+    // #1230: Off-chain commitment tree recent_roots buffer capacity must align
+    // with on-chain Anchor program's ROOT_HISTORY_SIZE (64) to prevent liveness
+    // reverts in settlement transactions.
+    assert_eq!(
+        crate::privacy::merkle::ROOT_HISTORY_LEN,
+        64,
+        "Off-chain ROOT_HISTORY_LEN must match on-chain ROOT_HISTORY_SIZE (64)"
+    );
+}
